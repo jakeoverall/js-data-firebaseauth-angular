@@ -5,7 +5,7 @@
 			'jsData.firebaseAuth'
 		])
 		.config(function (DSFirebaseAdapterProvider, DSProvider) {
-			var basePath = 'https://<YOURFIREBASEAPP>.firebaseio.com/';
+			var basePath = 'https://stackunderflow.firebaseio.com/';
 			DSFirebaseAdapterProvider.defaults.basePath = basePath;
 		})
 		.run(function (DS, DSFirebaseAdapter, User) {
