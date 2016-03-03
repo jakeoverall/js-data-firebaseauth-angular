@@ -1,52 +1,6 @@
 app.config(function (DSFirebaseAdapterProvider, DSProvider) {
-		var basePath = 'https://bcw-js-data.firebaseio.com/';
+		var basePath = 'https://<YOUR-FIREBASE>.firebaseio.com/';
 		DSFirebaseAdapterProvider.defaults.basePath = basePath;
-
-		angular.extend(DSProvider.defaults, {
-			beforeCreate: function (resource, data, cb) {
-				if (resource.defaultAdapter === 'firebase') {
-					data = fixKeys(data, true);
-				}
-				cb(null, data);
-			},
-			beforeUpdate: function (resource, data, cb) {
-				if (resource.defaultAdapter === 'firebase') {
-					data = fixKeys(data, true);
-				}
-				cb(null, data);
-			},
-			afterCreate: function (resource, data, cb) {
-				if (resource.defaultAdapter === 'firebase') {
-					data = fixKeys(data, false);
-				}
-				cb(null, data);
-			},
-			afterUpdate: function (resource, data, cb) {
-				if (resource.defaultAdapter === 'firebase') {
-					data = fixKeys(data, false);
-				}
-				cb(null, data);
-			},
-			afterFind: function (resource, data, cb) {
-				if (resource.defaultAdapter === 'firebase') {
-					data = fixKeys(data, false);
-				}
-				cb(null, data);
-			},
-			afterFindAll: function (resource, data, cb) {
-				if (resource.defaultAdapter === 'firebase') {
-					if (!Array.isArray(data)) {
-						data = fixKeys(data, false);
-					} else {
-						data = data.map(function (d) {
-							return fixKeys(d, false);
-						})
-					}
-				}
-				cb(null, data);
-			},
-		});
-
 });
 
 app.run(function (DS, DSFirebaseAdapter, User) {
@@ -72,7 +26,7 @@ app.run(function (DS, DSFirebaseAdapter, User) {
 				ref.on('child_changed', function (dataSnapshot) {
 			var data = dataSnapshot.val();
 			if (data[Resource.idAttribute]) {
-				Resource.inject(fixKeys(data));
+				Resource.inject(data);
 			}
 				});
 				// Eject items from the store when they're removed from Firebase
@@ -84,39 +38,3 @@ app.run(function (DS, DSFirebaseAdapter, User) {
 		});
 	});
 });
-
-function fixKeys(obj, encode) {
-		if (!Array.isArray(obj) && typeof obj != 'object') return obj;
-		return Object.keys(obj).reduce(function (acc, key) {
-			var fixedKey = key;
-			if (encode) {
-				fixedKey = encodeAsFirebaseKey(fixedKey);
-			} else {
-				fixedKey = decodeFirebaseKey(fixedKey);
-			}
-			acc[fixedKey] = fixKeys(obj[key], encode);
-			return acc;
-		}, Array.isArray(obj) ? [] : {});
-	}
-
-	function encodeAsFirebaseKey(val) {
-		return val
-			.replace(/\%/g, '%25')
-			.replace(/\./g, '%2E')
-			.replace(/\#/g, '%23')
-			.replace(/\$/g, '%24')
-			.replace(/\//g, '%2F')
-			.replace(/\[/g, '%5B')
-			.replace(/\]/g, '%5D');
-	};
-
-	function decodeFirebaseKey(val) {
-		return val
-			.replace(/\%25/g, '%')
-			.replace(/\%2E/g, '.')
-			.replace(/\%23/g, '#')
-			.replace(/\%24/g, '$')
-			.replace(/\%2F/g, '/')
-			.replace(/\%5D/g, ']')
-			.replace(/\%5B/g, '[')
-	};

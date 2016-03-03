@@ -64,5 +64,5 @@ Welcome {{member.name}}, What a sweet dashboard!
 </form>
 
 <ul>
-	<li ng-repeat="customer in customers">{{customer.name}} <button ng-click="editCustomer(customer)">Edit</button></li>
+	<li ng-repeat="customer in customers track by customer.id">{{customer.name}} <button ng-click="editCustomer(customer)">Edit</button></li>
 </ul>
