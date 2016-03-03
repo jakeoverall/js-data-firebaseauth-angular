@@ -14,7 +14,7 @@
 					auth: '&',
 					unauth: '&'
 				},
-				templateUrl: '/bower_components/js-data-firebase-auth/auth-form.html'
+				templateUrl: '/bower_components/js-data-firebaseauth-angular/auth-form.html'
 			}
 		})
 
