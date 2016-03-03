@@ -14,7 +14,7 @@
 					auth: '&',
 					unauth: '&'
 				},
-				templateUrl: 'auth-form.html'
+				templateUrl: '/bower_components/js-data-firebase-auth/auth-form.html'
 			}
 		})
 
@@ -74,7 +74,7 @@
 			}
 		}])
 
-		.controller('AuthController', ['$scope', '$state', 'AuthService', function ($scope, $state, AuthService) {
+		.controller('AuthController', ['$scope', 'AuthService', function ($scope, AuthService) {
 			var ac = this;
 			AuthService.authMember(handleDBResponse);
 			$scope.login = function () {

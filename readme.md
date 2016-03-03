@@ -13,15 +13,15 @@ angular.module('yourApp' ['jsData.firebaseAuth']);
 <firebase-auth auth="onAuthCallback" unauth="unauthCallback"></firebase-auth>
 
 <!--Load Libraries-->
-    <script src="bower_components/angular/angular.js"></script>
-    <script src="bower_components/firebase/firebase.js"></script>
-    <script src="bower_components/js-data/dist/js-data.js"></script>
-    <script src="bower_components/js-data-firebase/dist/js-data-firebase.js"></script>
-    <script src="bower_components/js-data-angular/dist/js-data-angular.js"></script>
-		<script src="bower_components/js-data-firebaseauth-angular/auth-component.js"></script>
-		
-		<!--You can customize the User Model as needed-->
-		<script src="bower_components/js-data-firebaseauth-angular/user-model.js"></script>
+<script src="bower_components/angular/angular.js"></script>
+<script src="bower_components/firebase/firebase.js"></script>
+<script src="bower_components/js-data/dist/js-data.js"></script>
+<script src="bower_components/js-data-firebase/dist/js-data-firebase.js"></script>
+<script src="bower_components/js-data-angular/dist/js-data-angular.js"></script>
+<script src="bower_components/js-data-firebase-auth/auth-component.js"></script>
+
+<!--You can customize the User Model as needed-->
+<script src="bower_components/js-data-firebase-auth/user-model.js"></script>
 ```
 
 The auth and unauth callback attributes are optional. For a full working demo check out the example. 
