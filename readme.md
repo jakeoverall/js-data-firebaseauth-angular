@@ -24,7 +24,27 @@ angular.module('yourApp' ['jsData.firebaseAuth']);
 <script src="bower_components/js-data-firebase-auth/user-model.js"></script>
 ```
 
-The auth and unauth callback attributes are optional. For a full working demo check out the example. 
+The auth and unauth attributes should be callback functions. For a full working demo check out the example.
+
+```javascript
+$scope.onauthCallback = function (error, memberData) {
+		if (error) {
+			//CUSTOM ERROR HANDLER
+			return console.log(error);
+		}
+		console.log(memberData);
+		if(memberData.someProp){
+			$state.go('auth.dashboard');
+		}else{
+			$state.go('auth.profileQuestions');
+		}
+	};
+
+
+$scope.unauthCallback = function () {
+	$state.go('home');
+}
+``` 
 
 Once Authenticated you will have access to the firebase member object will be available through `$rootScope.member`
 
